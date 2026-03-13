@@ -14,8 +14,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
 
 body{
-background:rgb(255, 255, 255);
-color:rgb(0, 0, 0);
+background:white;
+color:black;
 font-family:'Kosugi Maru',sans-serif;
 text-align:center;
 margin:0;
@@ -24,10 +24,9 @@ padding:0;
 
 .header{
 margin-top:30px;
-top:20px;
-left:20px;
 font-size:14px;
 text-align:center;
+line-height:20px;
 }
 
 .logo{
@@ -41,31 +40,22 @@ margin-top:20px;
 
 .product img{
 width:380px;
+max-width:90%;
 }
 
-.price{
-font-size:22px;
-margin:10px 0;
-}
-
-button{
-background:rgb(0, 0, 0);
-color:rgb(255, 255, 255);
-border:none;
-padding:15px 35px;
-font-size:16px;
-cursor:pointer;
-}
-
-button:hover{
-opacity:0.8;
+h2{
+margin-top:20px;
 }
 
 .footer{
-position:absolute;
+position:fixed;
 bottom:20px;
 width:100%;
 font-size:12px;
+}
+
+#paypal-container-RV4CYU6EDKDJW{
+margin-top:20px;
 }
 
 </style>
@@ -79,15 +69,15 @@ font-size:12px;
 <div id="weather">Loading weather...</div>
 </div>
 
-<img src="Public/logo.png" class="logo">
+<img src="logo.png" class="logo">
 
 <div class="product">
 
-<img src="Public/shirt.png">
+<img src="shirt.png">
 
 <h2>THE $1000 T SHIRT</h2>
 
-<button onclick="buy()">BUY</button>
+<div id="paypal-container-RV4CYU6EDKDJW"></div>
 
 </div>
 
@@ -98,52 +88,47 @@ RICH DROPOUT
 <script>
 
 function updateClock(){
-const now=new Date();
+const now=new Date()
 
-document.getElementById("time").innerText=
-now.toLocaleTimeString();
-
-document.getElementById("date").innerText=
-now.toDateString();
+document.getElementById("time").innerText=now.toLocaleTimeString()
+document.getElementById("date").innerText=now.toDateString()
 }
 
-setInterval(updateClock,1000);
-updateClock();
-
+setInterval(updateClock,1000)
+updateClock()
 
 async function getWeather(){
 
 try{
 
-const res=await fetch(
-"https://api.open-meteo.com/v1/forecast?latitude=40.73&longitude=-73.93&current_weather=true"
-);
+const res=await fetch("https://api.open-meteo.com/v1/forecast?latitude=40.73&longitude=-73.93&current_weather=true")
 
-const data=await res.json();
+const data=await res.json()
 
-document.getElementById("weather").innerText=
-"NYC "+data.current_weather.temperature+"°C";
+document.getElementById("weather").innerText="NYC "+data.current_weather.temperature+"°C"
 
 }catch{
 
-document.getElementById("weather").innerText="Weather unavailable";
+document.getElementById("weather").innerText="Weather unavailable"
 
 }
 
 }
 
-getWeather();
+getWeather()
 
+</script>
 
-async function buy(){
+<script src="https://www.paypal.com/sdk/js?client-id=BAAdlO5w8zzAgeNfusztLyQGhC79K4WWqLwaYXFngUKnRGkvaQ8tMIP3yVBGtBwPWcaBf2_duAJwFBPFYY&components=hosted-buttons&enable-funding=venmo&currency=USD" crossorigin="anonymous" async></script>
 
-const res=await fetch('/checkout',{method:'POST'});
-const data=await res.json();
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-window.location=data.url;
+paypal.HostedButtons({
+hostedButtonId: "RV4CYU6EDKDJW"
+}).render("#paypal-container-RV4CYU6EDKDJW")
 
-}
-
+})
 </script>
 
 </body>

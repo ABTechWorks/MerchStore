@@ -1,134 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>RICH DROPOUT</title>
-
 <link rel="icon" href="logo.png">
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
 
-body{
-background:white;
-color:black;
-font-family:'Kosugi Maru',sans-serif;
-text-align:center;
-margin:0;
-padding:0;
+body {
+  background: white;
+  color: black;
+  font-family: 'Kosugi Maru', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
-.header{
-margin-top:30px;
-font-size:14px;
-text-align:center;
-line-height:20px;
+.header {
+  margin-top: 30px;
+  font-size: 14px;
+  line-height: 20px;
 }
 
-.logo{
-margin-top:20px;
-width:220px;
+.logo {
+  margin: 20px auto;
+  display: block;
+  width: 220px;
 }
 
-.product{
-margin-top:20px;
+.product {
+  margin: 20px auto;
 }
 
-.product img{
-width:380px;
-max-width:90%;
+.product img {
+  width: 380px;
+  max-width: 90%;
 }
 
-h2{
-margin-top:20px;
+h2 {
+  margin-top: 20px;
 }
 
-.footer{
-position:fixed;
-bottom:20px;
-width:100%;
-font-size:12px;
+.buy-now {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 15px 35px;
+  font-size: 16px;
+  font-family: 'Kosugi Maru', sans-serif;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
 }
 
-#paypal-container-RV4CYU6EDKDJW{
-margin-top:20px;
+.buy-now:hover {
+  opacity: 0.8;
 }
 
+.footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  font-size: 12px;
+}
 </style>
 </head>
-
 <body>
 
 <div class="header">
-<div id="date"></div>
-<div id="time"></div>
-<div id="weather">Loading weather...</div>
+  <div id="date"></div>
+  <div id="time"></div>
+  <div id="weather">Loading weather...</div>
 </div>
 
-<img src="logo.png" class="logo">
+<img src="logo.png" class="logo" alt="RICH DROPOUT Logo">
 
 <div class="product">
-
-<img src="shirt.png">
-
-<h2>THE $1000 T SHIRT</h2>
-
-<div id="paypal-container-RV4CYU6EDKDJW"></div>
-
+  <img src="shirt.png" alt="THE $1000 T SHIRT">
+  <h2>THE $1000 T SHIRT</h2>
+  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RV4CYU6EDKDJW" target="_blank" class="buy-now">BUY NOW</a>
 </div>
 
 <div class="footer">
-RICH DROPOUT
+  RICH DROPOUT
 </div>
 
 <script>
-
-function updateClock(){
-const now=new Date()
-
-document.getElementById("time").innerText=now.toLocaleTimeString()
-document.getElementById("date").innerText=now.toDateString()
+// Clock
+function updateClock() {
+  const now = new Date();
+  document.getElementById("time").innerText = now.toLocaleTimeString();
+  document.getElementById("date").innerText = now.toDateString();
 }
+setInterval(updateClock, 1000);
+updateClock();
 
-setInterval(updateClock,1000)
-updateClock()
-
-async function getWeather(){
-
-try{
-
-const res=await fetch("https://api.open-meteo.com/v1/forecast?latitude=40.73&longitude=-73.93&current_weather=true")
-
-const data=await res.json()
-
-document.getElementById("weather").innerText="NYC "+data.current_weather.temperature+"°C"
-
-}catch{
-
-document.getElementById("weather").innerText="Weather unavailable"
-
+// Weather
+async function getWeather() {
+  try {
+    const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=40.73&longitude=-73.93&current_weather=true");
+    const data = await res.json();
+    document.getElementById("weather").innerText = "NYC " + data.current_weather.temperature + "°C";
+  } catch {
+    document.getElementById("weather").innerText = "Weather unavailable";
+  }
 }
-
-}
-
-getWeather()
-
-</script>
-
-<script src="https://www.paypal.com/sdk/js?client-id=BAAdlO5w8zzAgeNfusztLyQGhC79K4WWqLwaYXFngUKnRGkvaQ8tMIP3yVBGtBwPWcaBf2_duAJwFBPFYY&components=hosted-buttons&enable-funding=venmo&currency=USD" crossorigin="anonymous" async></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-paypal.HostedButtons({
-hostedButtonId: "RV4CYU6EDKDJW"
-}).render("#paypal-container-RV4CYU6EDKDJW")
-
-})
+getWeather();
 </script>
 
 </body>

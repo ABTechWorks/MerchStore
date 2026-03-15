@@ -6,120 +6,153 @@
 <title>RICH DROPOUT</title>
 <link rel="icon" href="logo.png">
 
-<!-- Open Graph for social previews -->
 <meta property="og:title" content="RICH DROPOUT">
-<meta property="og:description" content="The $1000 T-SHIRT — Buy now!">
+<meta property="og:description" content="The $10,000 T-SHIRT — Buy now!">
 <meta property="og:image" content="logo.png">
 <meta property="og:type" content="website">
 
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="RICH DROPOUT">
-<meta name="twitter:description" content="The $1000 T-SHIRT — Buy now!">
+<meta name="twitter:description" content="The $10,000 T-SHIRT — Buy now!">
 <meta name="twitter:image" content="logo.png">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap');
 
 body {
-  background: white;
-  color: black;
-  font-family: 'Kosugi Maru', sans-serif;
-  text-align: center;
-  margin: 0;
-  padding: 0;
+background:white;
+color:black;
+font-family:'Kosugi Maru',sans-serif;
+text-align:center;
+margin:0;
+padding:0;
 }
 
 .header {
-  margin-top: 30px;
-  font-size: 14px;
-  line-height: 20px;
+margin-top:30px;
+font-size:14px;
+line-height:20px;
 }
 
 .logo {
-  margin: 20px auto;
-  display: block;
-  width: 220px;
+margin:20px auto;
+display:block;
+width:220px;
 }
 
 .product {
-  margin: 20px auto;
+margin:60px auto;
 }
 
 .product img {
-  width: 380px;
-  max-width: 90%;
+width:380px;
+max-width:90%;
 }
 
 h2 {
-  margin-top: 20px;
+margin-top:20px;
 }
 
 .buy-now {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 15px 40px;
-  font-size: 16px;
-  font-family: 'Kosugi Maru', sans-serif;
-  background: black;
-  color: white;
-  border: none;
-  cursor: pointer;
-  text-decoration: none;
+display:inline-block;
+margin-top:20px;
+padding:15px 40px;
+font-size:16px;
+font-family:'Kosugi Maru',sans-serif;
+background:black;
+color:white;
+border:none;
+cursor:pointer;
+text-decoration:none;
 }
 
 .buy-now:hover {
-  opacity: 0.8;
+opacity:0.8;
 }
 
 .footer {
-  margin-top: 40px;
-  padding: 20px 0;
-  font-size: 12px;
+margin-top:60px;
+padding:20px 0;
+font-size:12px;
 }
 </style>
 </head>
+
 <body>
 
 <div class="header">
-  <div id="date"></div>
-  <div id="time"></div>
-  <div id="weather">Loading weather...</div>
+<div id="date"></div>
+<div id="time"></div>
+<div id="weather">Loading weather...</div>
 </div>
 
 <img src="logo.png" class="logo" alt="RICH DROPOUT Logo">
 
+<!-- PRODUCT 1 -->
+
 <div class="product">
-  <img src="shirt.png" alt="THE $1000 T SHIRT">
-  <h2>HAVE YOU EVER SPENT $10,000 ON A T SHIRT?</h2>
-  <a href="https://www.paypal.com/ncp/payment/RV4CYU6EDKDJW" target="_blank" class="buy-now">BUY NOW</a>
+
+<img src="shirt.png" alt="THE $10,000 T SHIRT">
+
+<h2>HAVE YOU EVER SPENT $10,000 ON A T SHIRT?</h2>
+
+<a href="https://www.paypal.com/ncp/payment/RV4CYU6EDKDJW" target="_blank" class="buy-now">
+BUY NOW
+</a>
+
+</div>
+
+<!-- PRODUCT 2 -->
+
+<div class="product">
+
+<img src="jar.jpg" alt="JAR OF SWAG">
+
+<h2>JAR OF SWAG — $100</h2>
+
+<a href="PASTE_PAYPAL_LINK_HERE" target="_blank" class="buy-now">
+BUY NOW
+</a>
+
 </div>
 
 <div class="footer">
-  RICH DROPOUT
+RICH DROPOUT
 </div>
 
 <script>
-// Clock
-function updateClock() {
-  const now = new Date();
-  document.getElementById("time").innerText = now.toLocaleTimeString();
-  document.getElementById("date").innerText = now.toDateString();
-}
-setInterval(updateClock, 1000);
-updateClock();
 
-// Weather
-async function getWeather() {
-  try {
-    const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=40.73&longitude=-73.93&current_weather=true");
-    const data = await res.json();
-    document.getElementById("weather").innerText = "NYC " + data.current_weather.temperature + "°C";
-  } catch {
-    document.getElementById("weather").innerText = "Weather unavailable";
-  }
+function updateClock(){
+const now=new Date()
+document.getElementById("time").innerText=now.toLocaleTimeString()
+document.getElementById("date").innerText=now.toDateString()
 }
-getWeather();
+
+setInterval(updateClock,1000)
+updateClock()
+
+async function getWeather(){
+
+try{
+
+const res=await fetch("https://api.open-meteo.com/v1/forecast?latitude=40.73&longitude=-73.93&current_weather=true")
+const data=await res.json()
+
+let c=data.current_weather.temperature
+let f=Math.round((c*9/5)+32)
+
+document.getElementById("weather").innerText="NYC ☀️ "+f+"°F"
+
+}catch{
+
+document.getElementById("weather").innerText="NYC ☀️ --°F"
+
+}
+
+}
+
+getWeather()
+
 </script>
 
 </body>
